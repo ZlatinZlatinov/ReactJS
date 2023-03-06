@@ -4,38 +4,41 @@ import Trow from "./Trow";
 
 const url = 'http://localhost:3030/jsonstore/todos';
 
+//OFC adding new todo or changing its status should make a req to the server
 
 export default function Tbody() {
     const [todos, setTodos] = useState([]);
     useEffect(() => {
         fetch(url)
             .then((response) => response.json())
-            .then((todo) => setTodos(Object.entries(todo).slice(0, 10)))
+            .then((todo) => setTodos(Object.values(todo).slice(-10)))
             .catch(err => console.log(err))
     }, []);
 
     function changeStatus(_id) {
         setTodos((arr) => {
-            arr.map(a => {
-                if (a[0] === _id) {
-                    if (a[1].isCompleted) {
-                        a[1].isCompleted = false;
+
+            return arr.map((a) => {
+                
+                if (a._id === _id) {
+                    if (a.isCompleted) {
+                        a.isCompleted = false;
                         return a;
                     }
 
-                    a[1].isCompleted = true;
+                    a.isCompleted = true;
                 }
 
                 return a;
-            })
-        })
+            });
+        });
     }
 
     return (
         <tbody>
             {todos.map((t) => {
-                return <Trow key={t[0]} changeStatus={changeStatus} {...(t[1])} />
+                return <Trow key={t._id} changeStatus={changeStatus} {...(t)} />
             })}
         </tbody>
-    )
+    );
 }

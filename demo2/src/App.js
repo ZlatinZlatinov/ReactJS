@@ -1,3 +1,4 @@
+import AddNewTodo from './components/AddNewTodo';
 import Footer from './components/Footer';
 import Header from './components/Header';
 import Tbody from './components/Tbody';
@@ -15,9 +16,7 @@ function App() {
                 <section className="todo-list-container">
                     <h1>Todo List</h1>
 
-                    <div class="add-btn-container">
-                        <button className="btn">+ Add new Todo</button>
-                    </div>
+                    <AddNewTodo />
 
                     <div className="table-wrapper">
                         <table className="table">
