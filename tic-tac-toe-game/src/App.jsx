@@ -4,33 +4,19 @@ import GameBoard from "./components/game-board/GameBoard";
 import Players from "./components/players/Players";
 import Log from "./components/game-log/Log";
 import { deriveActivePlayers } from "./utils/deriveActivePlayers";
-import { initialGameBoard, WINNING_COMBINATIONS } from "./data/data";
 import GameOver from "./components/game-over/GameOver";
+import { deriveWinner } from "./utils/deriveWinner";
+import { deriveGameBoard } from "./utils/deriveGameBoard";
+import { INITIAL_PLAYERS } from "./data/data";
 
 function App() {
+  const [initialPlayers, setPlayers] = useState(INITIAL_PLAYERS);
   const [gameTurns, setGameTurns] = useState([]);
+
   const activePlayer = deriveActivePlayers(gameTurns);
-
-  let gameBoard = [...initialGameBoard.map(arr => [...arr])];
-  let winner;
-
-  for (let turn of gameTurns) {
-    const { square, player } = turn;
-    const { rowIndex, colIndex } = square;
-
-    gameBoard[rowIndex][colIndex] = player;
-  }
-
-  for (const combination of WINNING_COMBINATIONS) {
-    const firstSquareSymbol = gameBoard[combination[0].row][combination[0].column];
-    const secondSquareSymbol = gameBoard[combination[1].row][combination[1].column];
-    const thirdSquareSymbol = gameBoard[combination[2].row][combination[2].column];
-
-    if (firstSquareSymbol && firstSquareSymbol === secondSquareSymbol && secondSquareSymbol === thirdSquareSymbol) {
-      winner = firstSquareSymbol;
-    }
-  }
-
+  const gameBoard = deriveGameBoard(gameTurns);
+  
+  const winner = deriveWinner(gameBoard, initialPlayers);
   const hasDraw = gameTurns.length === 9 && !winner;
 
   function handlePlayerTurn(rowIndex, colIndex) {
@@ -51,11 +37,17 @@ function App() {
   function handleRestart() {
     setGameTurns([]);
   }
-  
+
+  function handlePlayerNameChange(symbol, newName) {
+    setPlayers(prevPlayers => {
+      return { ...prevPlayers, [symbol]: newName };
+    });
+  }
+
   return (
     <main>
       <div id="game-container">
-        <Players activePlayer={activePlayer} />
+        <Players activePlayer={activePlayer} onChangeName={handlePlayerNameChange} />
         {(winner || hasDraw) && <GameOver winnerName={winner} handleRestart={handleRestart} />}
         <GameBoard
           onSelectSquare={handlePlayerTurn}

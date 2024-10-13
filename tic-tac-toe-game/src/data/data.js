@@ -39,15 +39,21 @@ const WINNING_COMBINATIONS = [
         { row: 1, column: 1 },
         { row: 2, column: 0 },
     ],
-]; 
+];
 
-const initialGameBoard = [
+const INITIAL_GAME_BOARD = [
     [null, null, null],
     [null, null, null],
     [null, null, null]
 ];
 
+const INITIAL_PLAYERS = {
+    'X': 'Player 1',
+    'O': 'Player 2'
+};
+
 export {
-    initialGameBoard, 
-    WINNING_COMBINATIONS
+    INITIAL_GAME_BOARD,
+    WINNING_COMBINATIONS,
+    INITIAL_PLAYERS
 }
