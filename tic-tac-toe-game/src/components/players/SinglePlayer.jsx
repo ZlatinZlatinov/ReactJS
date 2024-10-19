@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export default function SinglePlayer({ name, symbol, isActive }) {
+export default function SinglePlayer({ name, symbol, isActive, onChangeName }) {
     const [isEditing, setIsediting] = useState(false);
     const [playerName, setPlayerName] = useState(name);
 
@@ -18,6 +18,12 @@ export default function SinglePlayer({ name, symbol, isActive }) {
             <span className="player-symbol">{symbol}</span>
         </span>
 
-        <button onClick={() => setIsediting((old) => !old)}>{isEditing ? 'Save' : 'Edit'}</button>
+        <button
+            onClick={() => {
+                setIsediting((old) => !old);
+                if (isEditing) onChangeName(symbol, playerName);
+            }}>
+            {isEditing ? 'Save' : 'Edit'}
+        </button>
     </li>);
 }
