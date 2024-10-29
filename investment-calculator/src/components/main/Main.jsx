@@ -21,7 +21,7 @@ export default function Main() {
         setAppstate((old) => {
             return {
                 ...old,
-                [name]: value
+                [name]: value// overrides a single property of th old object
             }
         });
 
@@ -34,7 +34,7 @@ export default function Main() {
                     interest: obj.interest,
                     investedCapital: (appState.annualInvestment * obj.year + appState.initialInvestment),
                     year: obj.year, 
-                    totalInterest: obj.interest
+                    totalInterest: obj.valueEndOfYear - obj.annualInvestment * obj.year - appState.initialInvestment
                 }
             }));
         } else {
