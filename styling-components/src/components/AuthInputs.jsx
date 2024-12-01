@@ -65,7 +65,7 @@ export default function AuthInputs() {
         {/* <button  className="text-button">
           
         </button> */}
-        <MyButton type="button">Create a new account</MyButton>
+        <MyButton style={{color:'red'}} type="button">Create a new account</MyButton>
         <MyButton onClick={handleLogin}>Sign In</MyButton>
         {/* <button className='button' onClick={handleLogin}></button> */}
       </div>
