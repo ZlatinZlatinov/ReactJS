@@ -25,7 +25,7 @@ export default function AuthInputs() {
   const passwordNotValid = submitted && enteredPassword.trim().length < 6;
 
   return (
-    <div id="auth-inputs">
+    <div id="auth-inputs" className='w-full mx-auto max-w-sm p-8 rounded shadow-md bg-gradient-to-b from-stone-700 to-stone-800'>
       <div className="flex flex-col">
         {/* <p>
           <label>Email</label>
@@ -61,7 +61,7 @@ export default function AuthInputs() {
         </p> */}
       </div>
 
-      <div className="flex flex-col gap-3 mt-2 items-center">
+      <div className="flex flex-col gap-3 mt-3">
         {/* <button  className="text-button">
           
         </button> */}
