@@ -6,7 +6,7 @@ import { Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <main>
+    <main className="flex h-screen">
       <Sidebar />
       <Routes>
         <Route path="/" element={<NoProjects />} />
