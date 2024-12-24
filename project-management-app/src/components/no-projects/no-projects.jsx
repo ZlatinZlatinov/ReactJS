@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../../assets/no-projects.png';
 
 export default function NoProjects() {
@@ -6,6 +7,6 @@ export default function NoProjects() {
         <h2 className='text-xl text-gray-800 font-bold'>No Project Selected</h2>
         <p className='text-gray-600 text-base'>Select a project or get started with new one</p>
 
-        <button className='bg-zinc-950 text-base text-white p-3 rounded-lg font-semibold w-1/4'>Create new project</button>
+        <Link to="/add" className='bg-zinc-950 text-base text-white p-3 rounded-lg font-semibold w-1/4'>Create new project</Link>
     </section>);
 }
