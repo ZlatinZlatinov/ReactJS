@@ -52,8 +52,8 @@ export default function AddProject({ data, updateProjects }) {
             </div>
 
             <div>
-                <label className="pb-2 block text-xl uppercase text-gray-700" htmlFor="dueDate">Due Date</label>
-                <input className="w-full text-xl px-1 py-2 bg-gray-300" type="date" name="dueDate" id="dueDate" value={inputValues.date} onChange={inputHandler} />
+                <label className="pb-2 block text-xl uppercase text-gray-700" htmlFor="date">Due Date</label>
+                <input className="w-full text-xl px-1 py-2 bg-gray-300" type="date" name="date" id="date" value={inputValues.date} onChange={inputHandler} />
             </div>
         </form>
 
