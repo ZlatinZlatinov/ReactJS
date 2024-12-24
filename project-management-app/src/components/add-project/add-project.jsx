@@ -1,10 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-
-function getId(length = 6) {
-    return Math.random().toString(36).substring(2, length + 2);
-}
-
+import { getId } from '../../utils/getRandomId';
 
 export default function AddProject({ data, updateProjects }) {
     const navigate = useNavigate();
