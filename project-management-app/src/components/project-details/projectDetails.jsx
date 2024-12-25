@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getId } from '../../utils/getRandomId';
+import { getProjectById } from '../../services/projectService';
 //TODO: Implement clearing a task
-export default function ProjectDetails({ data, deleteProject }) {
+export default function ProjectDetails() {
+    const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [inputValue, inputHandler] = useState({
         id: getId(),
@@ -11,7 +13,19 @@ export default function ProjectDetails({ data, deleteProject }) {
 
     const { projectId } = useParams();
 
-    const project = data.find(p => p.id == projectId);
+    useEffect(() => {
+        try {
+            async function getProjectDetails() {
+                const result = await getProjectById(projectId)
+                setProject(result);
+            };
+
+            getProjectDetails();
+        } catch (err) {
+            alert(err.message);
+            console.error(err);
+        }
+    }, [projectId]);
 
     function addNewTask(e) {
         e.preventDefault();
@@ -24,7 +38,7 @@ export default function ProjectDetails({ data, deleteProject }) {
     }
 
     return (<section className="p-12 w-3/4 text-xl">
-        <div className="mt-8 flex flex-col gap-8 py-8">
+        {project ? <div className="mt-8 flex flex-col gap-8 py-8">
             <div className="flex w-full justify-between">
                 <h2 className="text-4xl font-bold">{project.title}</h2>
                 <button className="hover:text-red-800" onClick={() => deleteProject(project)}>Delete</button>
@@ -32,7 +46,7 @@ export default function ProjectDetails({ data, deleteProject }) {
 
             <p className="text-gray-500">{project.date}</p>
             <p>{project.description}</p>
-        </div>
+        </div> : <div className="mt-8 flex flex-col gap-8 py-8"><p>Loading...</p></div>}
 
         <span className="h-1 w-full block bg-gray-300"> </span>
 

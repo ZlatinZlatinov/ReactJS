@@ -34,7 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<NoProjects />} />
         <Route path="/add" element={<AddProject data={projects} updateProjects={updateProjects} />} />
-        <Route path="/details/:projectId" element={<ProjectDetails data={projects} deleteProject={deleteProject} />} />
+        <Route path="/details/:projectId" element={<ProjectDetails />} />
       </Routes>
 
     </main>

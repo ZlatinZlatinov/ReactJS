@@ -2,7 +2,7 @@ const Project = require("../models/Project");
 const Task = require("../models/Task");
 
 async function getAllProjects() {
-    return Project.find({ title }).lean();
+    return Project.find({}).select('title').lean();
 }
 
 async function getProjectById(projectId) {

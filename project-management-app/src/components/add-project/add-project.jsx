@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { getId } from '../../utils/getRandomId';
+import { createProject } from '../../services/projectService';
 
-export default function AddProject({ data, updateProjects }) {
+export default function AddProject() {
     const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({
-        id: getId(),
         title: '',
         description: '',
         date: ''
@@ -21,11 +21,16 @@ export default function AddProject({ data, updateProjects }) {
         }));
     }
 
-    function handleFormSubmit(e) {
+    async function handleFormSubmit(e) {
         e.preventDefault();
 
-        updateProjects(inputValues);
-        navigate('/');
+        try {
+            await createProject(inputValues);
+            navigate('/');
+        } catch (err) {
+            console.error(err);
+            alert(err.message);
+        }
     }
 
     return (<section className="flex flex-col items-center p-10 gap-12 w-3/4 mt-5">

@@ -3,6 +3,9 @@ const BASE_URL = 'http://localhost:3030/projects/';
 export async function createProject(payload) {
     const response = await fetch(BASE_URL, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload)
     });
 
@@ -36,6 +39,9 @@ export async function getAllProjects() {
 export async function updateProject(projectId, payload) {
     const response = await fetch(BASE_URL + projectId, {
         method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload)
     });
 
@@ -57,6 +63,9 @@ export async function deleteProject(projectId) {
 export async function addTask(projectId, payload) {
     const response = await fetch(BASE_URL + projectId, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify(payload)
     });
 
