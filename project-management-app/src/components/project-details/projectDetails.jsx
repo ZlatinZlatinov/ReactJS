@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getId } from '../../utils/getRandomId';
-
-export default function ProjectDetails({ data }) {
+//TODO: Implement clearing a task
+export default function ProjectDetails({ data, deleteProject }) {
     const [tasks, setTasks] = useState([]);
     const [inputValue, inputHandler] = useState({
         id: getId(),
@@ -27,7 +27,7 @@ export default function ProjectDetails({ data }) {
         <div className="mt-8 flex flex-col gap-8 py-8">
             <div className="flex w-full justify-between">
                 <h2 className="text-4xl font-bold">{project.title}</h2>
-                <button className="hover:text-red-800">Delete</button>
+                <button className="hover:text-red-800" onClick={() => deleteProject(project)}>Delete</button>
             </div>
 
             <p className="text-gray-500">{project.date}</p>
