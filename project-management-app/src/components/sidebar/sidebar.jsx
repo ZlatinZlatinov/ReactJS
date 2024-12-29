@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllProjects } from "../../services/projectService";
-
+//TODO: Update UI, when clearing a Project
 export default function Sidebar() {
     const [data, setData] = useState([]);
 

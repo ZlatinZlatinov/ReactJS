@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getId } from '../../utils/getRandomId';
-import { addTask, deleteProject, getProjectById } from '../../services/projectService';
-//TODO: Implement clearing a task
+import { deleteProject, getProjectById } from '../../services/projectService';
+import { addTask, clearTask } from '../../services/taskService';
+//TODO: Update UI, when clearing a task
 export default function ProjectDetails() {
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);
@@ -52,6 +53,15 @@ export default function ProjectDetails() {
         }
     }
 
+    async function deleteTask(taskId) {
+        try {
+            await clearTask(taskId);
+            navigate(`/details/${projectId}`);
+        } catch (err) {
+            alert(err.message);
+        }
+    }
+
     return (<section className="p-12 w-3/4 text-xl">
         {project ? <div className="mt-8 flex flex-col gap-8 py-8">
             <div className="flex w-full justify-between">
@@ -87,7 +97,7 @@ export default function ProjectDetails() {
 
             <ul className="flex flex-col gap-4 w-full">
                 {!tasks[0] ? <li className="flex justify-between bg-gray-200 px-4 py-2"><span>No tasks yet!</span></li> :
-                    tasks.map(t => <li key={t._id} className="flex justify-between bg-gray-200 px-4 py-2"><span>{t.task}</span><button className="hover:text-red-800">Clear</button></li>)}
+                    tasks.map(t => <li key={t._id} className="flex justify-between bg-gray-200 px-4 py-2"><span>{t.task}</span><button className="hover:text-red-800" onClick={() => deleteTask(t._id)}>Clear</button></li>)}
             </ul>
         </div>
     </section>)

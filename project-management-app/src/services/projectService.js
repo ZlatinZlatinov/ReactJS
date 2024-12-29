@@ -59,20 +59,3 @@ export async function deleteProject(projectId) {
         throw new Error('Failed to delete project!');
     }
 }
-
-export async function addTask(projectId, payload) {
-    const response = await fetch(BASE_URL + 'task/' + projectId, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload)
-    });
-
-    if (response.status !== 200) {
-        throw new Error('Failed to add task!');
-    }
-
-    const data = await response.json();
-    return data;
-}

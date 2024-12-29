@@ -22,21 +22,10 @@ async function deleteProject(projectId) {
     //Not sure what happens to the created tasks
 }
 
-async function addTask(projectId, taskPayload) {
-    const task = await Task.create({task: taskPayload});
-    const project = await Project.findById(projectId);
-
-    project.tasks.push(task._id);
-    await project.save();
-
-    return task;
-}
-
 module.exports = {
     getAllProjects,
     getProjectById,
     createProject,
     updateProject,
-    deleteProject,
-    addTask
+    deleteProject
 }
