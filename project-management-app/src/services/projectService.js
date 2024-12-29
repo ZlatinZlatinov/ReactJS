@@ -61,7 +61,7 @@ export async function deleteProject(projectId) {
 }
 
 export async function addTask(projectId, payload) {
-    const response = await fetch(BASE_URL + projectId, {
+    const response = await fetch(BASE_URL + 'task/' + projectId, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
