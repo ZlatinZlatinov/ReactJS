@@ -1,9 +1,9 @@
-const { 
-    getAllProjects, 
-    getProjectById, 
-    createProject, 
-    updateProject, 
-    deleteProject, 
+const {
+    getAllProjects,
+    getProjectById,
+    createProject,
+    updateProject,
+    deleteProject,
     addTask } = require('../services/projectService');
 
 //Todo: Add error handling and data validation
@@ -32,9 +32,15 @@ projectController.post('/task/:projectId', async (req, res) => {
     const projectId = req.params.projectId;
     const { task } = req.body;
 
-    const t = await addTask(projectId, task);
+    try {
+        const t = await addTask(projectId, task);
+        res.json(t);
+    } catch (err) {
+        console.log(err.message);
+        console.error(err);
+        res.status(400).end();
+    }
 
-    res.json(t);
 });
 
 projectController.put('/:projectId', async (req, res) => {

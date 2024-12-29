@@ -13,7 +13,7 @@ const projectSchema = new Schema({
         type: String,
         requred: true
     },
-    tasks: [{ type: Types.ObjectId, ref: 'Task' }]
+    tasks: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 });
 
 const Project = model('Project', projectSchema);

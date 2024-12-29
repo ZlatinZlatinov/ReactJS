@@ -23,7 +23,7 @@ async function deleteProject(projectId) {
 }
 
 async function addTask(projectId, taskPayload) {
-    const task = await Task.create(taskPayload);
+    const task = await Task.create({task: taskPayload});
     const project = await Project.findById(projectId);
 
     project.tasks.push(task._id);
