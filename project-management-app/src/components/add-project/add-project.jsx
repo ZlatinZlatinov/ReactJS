@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
-import { getId } from '../../utils/getRandomId';
 import { createProject } from '../../services/projectService';
-
-export default function AddProject() {
+//TODO: Add data validation and improve UI for incorrect form values
+export default function AddProject({ updateProjects }) {
     const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({
         title: '',
@@ -25,7 +24,8 @@ export default function AddProject() {
         e.preventDefault();
 
         try {
-            await createProject(inputValues);
+            const newProject = await createProject(inputValues);
+            updateProjects(newProject);
             navigate('/');
         } catch (err) {
             console.error(err);

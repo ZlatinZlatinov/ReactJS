@@ -12,6 +12,9 @@ export async function createProject(payload) {
     if (response.status !== 200) {
         throw new Error('Failed to create a project!');
     }
+
+    const result = await response.json();
+    return result;
 }
 
 export async function getProjectById(projectId) {

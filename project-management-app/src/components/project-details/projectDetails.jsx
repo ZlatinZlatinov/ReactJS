@@ -1,15 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { getId } from '../../utils/getRandomId';
-import { deleteProject, getProjectById } from '../../services/projectService';
+import { useParams } from 'react-router-dom';
+import { getProjectById } from '../../services/projectService';
 import { addTask, clearTask } from '../../services/taskService';
-//TODO: Update UI, when clearing a task
-export default function ProjectDetails() {
+//TODO: Clear the code, use custom hooks and context api
+export default function ProjectDetails({removeProject}) {
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);
-    const navigate = useNavigate();
     const [inputValue, inputHandler] = useState({ task: '' });
-
     const { projectId } = useParams();
 
     useEffect(() => {
@@ -26,16 +23,6 @@ export default function ProjectDetails() {
             console.error(err);
         }
     }, [projectId]);
-
-    async function delProject(projectId) {
-        try {
-            await deleteProject(projectId);
-            navigate('/');
-        } catch (err) {
-            alert(err.message);
-            console.error(err);
-        }
-    }
 
     async function addNewTask(e) {
         e.preventDefault();
@@ -56,7 +43,8 @@ export default function ProjectDetails() {
     async function deleteTask(taskId) {
         try {
             await clearTask(taskId);
-            navigate(`/details/${projectId}`);
+            setTasks(old => old.filter((t) => t._id !== taskId));
+            //Not sure if its the best idea to use filter, but it works atm
         } catch (err) {
             alert(err.message);
         }
@@ -66,7 +54,7 @@ export default function ProjectDetails() {
         {project ? <div className="mt-8 flex flex-col gap-8 py-8">
             <div className="flex w-full justify-between">
                 <h2 className="text-4xl font-bold">{project.title}</h2>
-                <button className="hover:text-red-800" onClick={() => delProject(project._id)}>Delete</button>
+                <button className="hover:text-red-800" onClick={() => removeProject(project._id)}>Delete</button>
             </div>
 
             <p className="text-gray-500">{project.date}</p>
