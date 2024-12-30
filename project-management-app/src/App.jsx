@@ -5,27 +5,39 @@ import Sidebar from "./components/sidebar/sidebar";
 
 import { useState, useEffect } from 'react'
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { data } from './data/data';
+import { deleteProject, getAllProjects } from "./services/projectService";
 
 function App() {
   const [projects, setProjects] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      setProjects(data);
-    }, 2000);
-  }, [data]);
+    async function getProjects() {
+      try {
+        const result = await getAllProjects();
+        setProjects(result);
+      } catch (err) {
+        alert(err.message);
+      }
+    }
+
+    getProjects();
+  }, []);
 
   function updateProjects(project) {
     setProjects(old => [...old, project]);
   }
 
-  function deleteProject(project) {
-    const index = projects.indexOf(project);
-    projects.splice(index, 1)
-    setProjects(old => projects);
-    navigate('/');
+  async function removeProject(projectId) {
+    try {
+      await deleteProject(projectId);
+      setProjects((old) => old.filter(p => p._id !== projectId));
+      //Not sure if filter is a proper way
+      navigate('/');
+    } catch (err) {
+      alert(err.message);
+      console.error(err);
+    }
   }
 
   return (
@@ -34,7 +46,7 @@ function App() {
       <Routes>
         <Route path="/" element={<NoProjects />} />
         <Route path="/add" element={<AddProject data={projects} updateProjects={updateProjects} />} />
-        <Route path="/details/:projectId" element={<ProjectDetails />} />
+        <Route path="/details/:projectId" element={<ProjectDetails removeProject={removeProject} />} />
       </Routes>
 
     </main>
