@@ -10,7 +10,8 @@ async function getProjectById(projectId) {
 }
 
 async function createProject(payload) {
-    await Project.create(payload);
+    const project = await Project.create(payload);
+    return { _id: project._id, title: project.title }; // Only those values are needed for now
 }
 
 async function updateProject(projectId, payload) {

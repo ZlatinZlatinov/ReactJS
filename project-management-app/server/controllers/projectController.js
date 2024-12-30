@@ -22,9 +22,9 @@ projectController.get('/:projectId', async (req, res) => {
 
 projectController.post('/', async (req, res) => {
     const { title, description, date } = req.body;
-    await createProject({ title, description, date });
+    const result = await createProject({ title, description, date });
 
-    res.status(200).end();//At this point I dont need to return the project
+    res.json(result);
 });
 
 projectController.put('/:projectId', async (req, res) => {
