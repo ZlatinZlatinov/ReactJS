@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { createProject } from '../../services/projectService';
 //TODO: Add data validation and improve UI for incorrect form values
+// Can also make separate input components
 export default function AddProject({ updateProjects }) {
     const navigate = useNavigate();
     const [inputValues, setInputValues] = useState({

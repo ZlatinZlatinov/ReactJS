@@ -2,7 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProjectById } from '../../services/projectService';
 import { addTask, clearTask } from '../../services/taskService';
+import { dateFormatter } from '../../utils/dateFormatter';
 //TODO: Clear the code, use custom hooks and context api
+//TODO: Prompt user on deleting a project
 export default function ProjectDetails({removeProject}) {
     const [project, setProject] = useState(null);
     const [tasks, setTasks] = useState([]);
@@ -57,7 +59,7 @@ export default function ProjectDetails({removeProject}) {
                 <button className="hover:text-red-800" onClick={() => removeProject(project._id)}>Delete</button>
             </div>
 
-            <p className="text-gray-500">{project.date}</p>
+            <p className="text-gray-500">{dateFormatter(project.date)}</p>
             <p>{project.description}</p>
         </div> : <div className="mt-8 flex flex-col gap-8 py-8"><p>Loading...</p></div>}
 
