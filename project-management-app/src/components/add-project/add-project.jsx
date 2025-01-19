@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import { createProject } from '../../services/projectService';
+import TextEditor from './text-editor';
 //TODO: Add data validation and improve UI for incorrect form values
 // Can also make separate input components
 export default function AddProject({ updateProjects }) {
@@ -10,6 +11,14 @@ export default function AddProject({ updateProjects }) {
         description: '',
         date: ''
     });
+
+    function updateDescription(desc) {
+        setInputValues(old => {
+            return {
+                ...old, ['description']: desc
+            }
+        })
+    }
 
     function inputHandler(e) {
         const name = e.target.name;
@@ -34,10 +43,10 @@ export default function AddProject({ updateProjects }) {
         }
     }
 
-    return (<section className="flex flex-col items-center p-10 gap-12 w-3/4 mt-5">
+    return (<section className="flex flex-col items-center px-52 gap-12 w-3/4 mt-5">
         <h2 className="text-3xl font-semibold text-gray-700">Add new project</h2>
 
-        <form className="w-full flex flex-col gap-5 mt-5" onSubmit={handleFormSubmit}>
+        <form className="w-full flex flex-col gap-5 py-5" onSubmit={handleFormSubmit}>
             <div className="self-end flex gap-2">
                 <Link to="/" className="font-semibold text-base px-8 py-3 text-center">Cancel</Link>
                 <button type="submit" className="bg-zinc-950 text-base text-white px-8 py-3 text-center rounded-lg font-semibold">Save</button>
@@ -45,17 +54,18 @@ export default function AddProject({ updateProjects }) {
 
             <div>
                 <label className='pb-2 block text-xl uppercase text-gray-700' htmlFor="title">Title</label>
-                <input className="w-full text-xl px-1 py-2 bg-gray-300" type="text" name="title" id="title" value={inputValues.title} onChange={inputHandler} />
+                <input className="w-full text-xl px-1 py-2 border border-gray-300" type="text" name="title" id="title" value={inputValues.title} onChange={inputHandler} />
             </div>
 
             <div>
                 <label className="pb-2 block text-xl uppercase text-gray-700" htmlFor="description">Description</label>
-                <textarea rows={5} className="w-full text-xl px-1 py-2 bg-gray-300" name="description" id="description" value={inputValues.description} onChange={inputHandler}></textarea>
+                {/* <textarea rows={5} className="w-full text-xl px-1 py-2 bg-gray-300" name="description" id="description" value={inputValues.description} onChange={inputHandler}></textarea> */}
+                <TextEditor updateDescription={updateDescription} />
             </div>
 
             <div>
                 <label className="pb-2 block text-xl uppercase text-gray-700" htmlFor="date">Due Date</label>
-                <input className="w-full text-xl px-1 py-2 bg-gray-300" type="date" name="date" id="date" value={inputValues.date} onChange={inputHandler} />
+                <input className="w-full text-xl px-1 py-2 border border-gray-300" type="date" name="date" id="date" value={inputValues.date} onChange={inputHandler} />
             </div>
         </form>
 

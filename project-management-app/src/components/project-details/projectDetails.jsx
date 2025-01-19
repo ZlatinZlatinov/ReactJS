@@ -60,7 +60,7 @@ export default function ProjectDetails({removeProject}) {
             </div>
 
             <p className="text-gray-500">{dateFormatter(project.date)}</p>
-            <p>{project.description}</p>
+            <p dangerouslySetInnerHTML={{__html: project.description }} />
         </div> : <div className="mt-8 flex flex-col gap-8 py-8"><p>Loading...</p></div>}
 
         <span className="h-1 w-full block bg-gray-300"> </span>
