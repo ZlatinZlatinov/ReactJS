@@ -10,7 +10,7 @@ function App() {
     <CartContextProvider>
       {/* When using older version than React 19, use CartContext.Provider */}
       <Header />
-      <Shop onAddItemToCart={handleAddItemToCart} >
+      <Shop>
         {DUMMY_PRODUCTS.map((product) => (
           <li key={product.id}>
             <Product {...product} />
