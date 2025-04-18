@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import JoditEditor from 'jodit-react';
+import JoditEditor, { Jodit } from 'jodit-react';
 //View DOCS: https://medium.com/@subalerts/wysiwyg-editor-for-react-jodit-editor-with-vite-and-typescript-9e40c28fba8b
 export default function TextEditor({updateDescription}) {
     const editor = useRef(null);
@@ -9,7 +9,7 @@ export default function TextEditor({updateDescription}) {
         readonly: false,
         height: 400,
         toolbarButtonSize: 'middle',
-        buttons: ['bold', 'italic', 'underline', 'link', 'unlink', 'source'],
+        buttons: [...Jodit.defaultOptions.buttons],
         uploader: {
             insertImageAsBase64URI: true,
         },
