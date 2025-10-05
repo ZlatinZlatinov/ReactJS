@@ -6,10 +6,10 @@ const CalendarApp = () => {
             <div className="calendar">
                 {/* Heading */}
                 <h1 className="heading">Calendar</h1>
-                
+
                 {/* Navigate-Date */}
                 <div className="navigate-date">
-                    <h2 className="month">May</h2>
+                    <h2 className="month">May,</h2>
                     <h2 className="year">2025</h2>
                     <div className="buttons">
                         <i className="bx bx-chevron-left"></i>
@@ -30,6 +30,30 @@ const CalendarApp = () => {
 
                 {/* Days */}
                 <div className="days">
+                    <span className="current-day">1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
+                    <span>1</span>
                     <span>1</span>
                     <span>1</span>
                     <span>1</span>
@@ -51,20 +75,21 @@ const CalendarApp = () => {
                         <button className="event-popup-btn">Add Event</button>
                         <button className="close-event-popup-btn"><i className="bx bx-x"></i></button>
                     </div>
+                </div>
+            </div>
 
-                    <div className="event">
-                        <div className="event-day-wrapper">
-                            <div className="event-date">May 15, 2025</div>
-                            <div className="event-time">10:10</div>
-                        </div>
-                        <div className="event-text">
-                            Meeting with the BOSS
-                        </div>
-                        <div className="event-buttons">
-                            <i className="bx bxs-edit-alt"></i>
-                            <i className="bx bxs-message-alt-x"></i>
-                        </div>
-                    </div>
+            {/* Event */}
+            <div className="event">
+                <div className="event-day-wrapper">
+                    <div className="event-date">May 15, 2025</div>
+                    <div className="event-time">10:10</div>
+                </div>
+                <div className="event-text">
+                    Meeting with the BOSS
+                </div>
+                <div className="event-buttons">
+                    <i className="bx bxs-edit-alt"></i>
+                    <i className="bx bxs-message-alt-x"></i>
                 </div>
             </div>
         </div>
