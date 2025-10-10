@@ -1,5 +1,26 @@
+import { useState } from "react";
+import { daysOfWeek, monthsOfYear } from "../Constatns/calendar";
 
 const CalendarApp = () => {
+    const currentDate = new Date();
+
+    const [currentMonth, setCurrMonth] = useState(currentDate.getMonth());
+    const [currentYear, setCurrYear] = useState(currentDate.getFullYear());
+
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 0).getDay();// not sure about this one, initially was 1
+
+    // console.log(currentMonth, currentYear, daysInMonth, firstDayOfMonth);
+    const previousMonth = () => {
+        setCurrMonth((prevMonth) => (prevMonth === 0 ? 11 : prevMonth - 1));
+        setCurrYear((prevYear) => (currentMonth === 0 ? prevYear - 1 : prevYear))
+    }
+
+    const nextMonth = () => {
+        setCurrMonth((prevMonth) => (prevMonth === 11 ? 0 : prevMonth + 1));
+        setCurrYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear))
+    }
+
     return (
         <div className="calendar-app">
             {/* Calendar */}
@@ -9,57 +30,30 @@ const CalendarApp = () => {
 
                 {/* Navigate-Date */}
                 <div className="navigate-date">
-                    <h2 className="month">May,</h2>
-                    <h2 className="year">2025</h2>
+                    <h2 className="month">{monthsOfYear[currentMonth]},</h2>
+                    <h2 className="year">{currentYear}</h2>
                     <div className="buttons">
-                        <i className="bx bx-chevron-left"></i>
-                        <i className="bx bx-chevron-right"></i>
+                        <i className="bx bx-chevron-left" onClick={previousMonth}></i>
+                        <i className="bx bx-chevron-right" onClick={nextMonth}></i>
                     </div>
                 </div>
 
                 {/* Weekdays */}
                 <div className="weekdays">
-                    <span>Sun</span>
-                    <span>Mon</span>
-                    <span>Tue</span>
-                    <span>Wed</span>
-                    <span>Thu</span>
-                    <span>Fri</span>
-                    <span>Sat</span>
+                    {daysOfWeek.map((weekDay) => <span key={weekDay.id}>{weekDay.name}</span>)}
                 </div>
 
                 {/* Days */}
                 <div className="days">
-                    <span className="current-day">1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
-                    <span>1</span>
+                    {[...Array(firstDayOfMonth).keys()]
+                        .map((_, index) => <span key={`empty-${index}`} />)}
+                    {[...Array(daysInMonth).keys()]
+                        .map(day => <span key={day + 1} className={day + 1 === currentDate.getDate() &&
+                            currentMonth === currentDate.getMonth() && 
+                            currentYear === currentDate.getFullYear() ?
+                            'current-day' : ''
+                         }>{day + 1}</span>)}
+
                 </div>
 
                 {/* Events */}
