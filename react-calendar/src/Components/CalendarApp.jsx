@@ -6,6 +6,8 @@ const CalendarApp = () => {
 
     const [currentMonth, setCurrMonth] = useState(currentDate.getMonth());
     const [currentYear, setCurrYear] = useState(currentDate.getFullYear());
+    const [selectedDate, setSelectedDate] = useState(currentDate);
+    const [showEventPopUp, setEventPopUp] = useState(false);
 
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const firstDayOfMonth = new Date(currentYear, currentMonth, 0).getDay();// not sure about this one, initially was 1
@@ -21,6 +23,27 @@ const CalendarApp = () => {
         setCurrYear((prevYear) => (currentMonth === 11 ? prevYear + 1 : prevYear))
     }
 
+    const handleDayClick = (day) => {
+        const clickedDate = new Date(currentYear, currentMonth, day);
+        const today = new Date();
+
+        if (clickedDate >= today || isSameDay(clickedDate, today)) {
+            setSelectedDate(clickedDate);
+            setEventPopUp(true);
+        }
+    }
+
+    const isSameDay = (date1, date2) => {
+        return (
+            date1.getFullYear() === date2.getFullYear() &&
+            date1.getMonth() === date2.getMonth() &&
+            date1.getDate() === date2.getDate()
+        );
+    }
+
+    const handleHideEventPopUp = () => {
+        setEventPopUp(false);
+    }
     return (
         <div className="calendar-app">
             {/* Calendar */}
@@ -48,44 +71,48 @@ const CalendarApp = () => {
                     {[...Array(firstDayOfMonth).keys()]
                         .map((_, index) => <span key={`empty-${index}`} />)}
                     {[...Array(daysInMonth).keys()]
-                        .map(day => <span key={day + 1} className={day + 1 === currentDate.getDate() &&
-                            currentMonth === currentDate.getMonth() && 
-                            currentYear === currentDate.getFullYear() ?
-                            'current-day' : ''
-                         }>{day + 1}</span>)}
+                        .map((day) => (<span
+                            key={day + 1}
+                            className={day + 1 === currentDate.getDate() &&
+                                currentMonth === currentDate.getMonth() &&
+                                currentYear === currentDate.getFullYear() ? 'current-day' : ''}
+                            onClick={() => handleDayClick(day + 1)}
+                        >{day + 1}</span>))}
 
                 </div>
+            </div>
 
-                {/* Events */}
-                <div className="events">
-                    <div className="event-popup">
-                        <div className="time-input">
-                            <div className="event-popup-time">Time</div>
-                            <input type="number" name="hours" min={0} max={24} className="hours" />
-                            <input type="number" name="minutes" min={0} max={60} className="minutes" />
-                        </div>
+            {/* Events */}
+            <div className="events">
+                {/* Event PopUp */}
+                {showEventPopUp && <div className="event-popup">
+                    <div className="time-input">
+                        <div className="event-popup-time">Time</div>
+                        <input type="number" name="hours" min={0} max={24} className="hours" />
+                        <input type="number" name="minutes" min={0} max={60} className="minutes" />
+                    </div>
 
-                        <textarea name="event-text" placeholder="Enter the event text... (Maximum 60 Characters)"></textarea>
-                        <button className="event-popup-btn">Add Event</button>
-                        <button className="close-event-popup-btn"><i className="bx bx-x"></i></button>
+                    <textarea name="event-text" placeholder="Enter the event text... (Maximum 60 Characters)"></textarea>
+                    <button className="event-popup-btn">Add Event</button>
+                    <button className="close-event-popup-btn" onClick={handleHideEventPopUp}><i className="bx bx-x"></i></button>
+                </div>}
+
+                {/* Event */}
+                <div className="event">
+                    <div className="event-day-wrapper">
+                        <div className="event-date">May 15, 2025</div>
+                        <div className="event-time">10:10</div>
+                    </div>
+                    <div className="event-text">
+                        Meeting with the BOSS
+                    </div>
+                    <div className="event-buttons">
+                        <i className="bx bxs-edit-alt"></i>
+                        <i className="bx bxs-message-alt-x"></i>
                     </div>
                 </div>
             </div>
 
-            {/* Event */}
-            <div className="event">
-                <div className="event-day-wrapper">
-                    <div className="event-date">May 15, 2025</div>
-                    <div className="event-time">10:10</div>
-                </div>
-                <div className="event-text">
-                    Meeting with the BOSS
-                </div>
-                <div className="event-buttons">
-                    <i className="bx bxs-edit-alt"></i>
-                    <i className="bx bxs-message-alt-x"></i>
-                </div>
-            </div>
         </div>
     );
 }
