@@ -90,6 +90,11 @@ const CalendarApp = () => {
         setEventPopUp(true);
     }
 
+    const handleDeleteEvent = (eventId) => {
+        const updatedEvents = events.filter((event) => event.id !== eventId);
+        setEvents(updatedEvents);
+    }
+
     return (
         <div className="calendar-app">
             {/* Calendar */}
@@ -178,7 +183,7 @@ const CalendarApp = () => {
                         </div>
                         <div className="event-buttons">
                             <i className="bx bxs-edit-alt" onClick={() => handleEditEvent(event)}></i>
-                            <i className="bx bxs-message-alt-x"></i>
+                            <i className="bx bxs-message-alt-x" onClick={() => handleDeleteEvent(event.id)}></i>
                         </div>
                     </div>
                 ))}
