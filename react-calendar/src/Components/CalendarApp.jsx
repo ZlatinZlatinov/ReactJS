@@ -95,6 +95,12 @@ const CalendarApp = () => {
         setEvents(updatedEvents);
     }
 
+    const handleChangeTime = (e) => {
+        const { name, value } = e.target;
+
+        setEventTime((prevTime) => ({ ...prevTime, [name]: value.padStart(2, '0') }));
+    }
+
     return (
         <div className="calendar-app">
             {/* Calendar */}
@@ -146,7 +152,7 @@ const CalendarApp = () => {
                             max={24}
                             className="hours"
                             value={eventTime.hours}
-                            onChange={(e) => setEventTime({ ...eventTime, hours: e.target.value })}
+                            onChange={handleChangeTime}
                         />
                         <input
                             type="number"
@@ -155,7 +161,7 @@ const CalendarApp = () => {
                             max={60}
                             className="minutes"
                             value={eventTime.minutes}
-                            onChange={(e) => setEventTime({ ...eventTime, minutes: e.target.value })}
+                            onChange={handleChangeTime}
                         />
                     </div>
 
